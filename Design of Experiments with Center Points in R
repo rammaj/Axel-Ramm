@@ -1,0 +1,20 @@
+# Import FrF2 Package
+library ("FrF2")
+
+# Create a L8 Orthogonal Array with 04 Factors and 02 Levels on each Factor
+L8 <- FrF2(nruns = 8, 
+           nfactors = 4, 
+           factor.names=c("A","B","C","D"), 
+           randomize = FALSE)
+
+# Add a Center Point to the L8 Orthogonal Array
+L8_CtPt <- add.center(L8, ncenter = 1)
+
+# Add Response Values to the DOE Table
+Y <- c(1.1, 12.0, 3.6, 2.1, 1.5, 14.7, 3.3, 2.9, 20)
+L8_CtPt <- add.response(L8_CtPt, Y)
+
+# DOE Preparation for Regression Analysis
+# Add a Placeholder for the Center Point Coding to the DOE Table
+CenterPt <- c(1, 1, 1, 1, 1, 1, 1, 1, 0)
+L8_CtPt_Regression <- cbind(CenterPt, L8_CtPt)
